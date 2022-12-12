@@ -38,7 +38,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const SidebarComponent = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard");
 
     return (
@@ -61,16 +61,33 @@ const SidebarComponent = () => {
                 },
             }}>
                 <Sidebar defaultCollapsed={isCollapsed}
-                    >
+                >
                     {/* USER */}
-                    {
-                        // isCollapsed &&
-                         (
-                            <Menu 
-                            onClick={() => setIsCollapsed(!isCollapsed)}
-                            renderExpandIcon={isCollapsed ? <MenuOutlinedIcon/> : undefined }>
+
+
+
+                    <Menu
+                        onClick={() => setIsCollapsed(!isCollapsed)}
+                        renderExpandIcon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+                        style={
+                            {
+                                margin: "10px 0 20px 0",
+                                color: colors.grey[100]
+                            }
+                        }
+                    >
+
+                        {!isCollapsed && (
+
+                            
                                 <Box mb="25px">
                                     <Box display="flex" justifyContent="center" alignItems="center">
+                                        <Typography>
+                                            Admins
+                                        </Typography>
+                                        <IconButton>
+                                            <MenuOutlinedIcon />
+                                        </IconButton>
                                         <img
                                             alt="profile-user"
                                             width="100px"
@@ -79,10 +96,7 @@ const SidebarComponent = () => {
                                             style={{ cursor: "pointer", borderRadius: "50%" }} />
 
                                     </Box>
-                                </Box>
-
-
-                                <Box>
+                                    <Box>
                                     <Typography variant="h2" color={colors.grey[100]} fontWeight="bold" sx={{ m: "10px 0 0 0" }} >Prince Johnson</Typography>
                                     <Typography varient="h5" color={colors.greenAccent[500]}>VP Fancy Admin</Typography>
                                 </Box>
@@ -141,8 +155,8 @@ const SidebarComponent = () => {
                                         setSelected={setSelected}
                                     />
                                     <Typography varient="h6"
-                                    color={colors.grey[300]}
-                                    sx={{ m: "15px 0 0 0"}}> Charts</Typography>
+                                        color={colors.grey[300]}
+                                        sx={{ m: "15px 0 0 0" }}> Charts</Typography>
                                     <Item title="Bar Charts"
                                         // to="/bar"
                                         icon={<BarChartOutlinedIcon />}
@@ -167,11 +181,17 @@ const SidebarComponent = () => {
                                         selectd={selected}
                                         setSelected={setSelected}
                                     />
-
                                 </Box>
-                            </Menu>
-                        )
-                    }
+                                </Box>
+
+
+                                
+
+                        )}
+                    </Menu>
+
+
+
 
                 </Sidebar>
             </Box>
